@@ -51,7 +51,7 @@ const Home = () => {
                 >
                   <Typography variant="subtitle1">{item.nombreItem}</Typography>
                   <Typography variant="subtitle1">
-                    Status: {item.statusItem ? "Activo" : "Inactivo"}
+                    Vence en {item.diasItem} dias
                   </Typography>
                 </Box>
               </Paper>

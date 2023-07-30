@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL =
-  "http://ec2-54-236-5-242.compute-1.amazonaws.com:3000/items";
+const API_BASE_URL = "https://monitoreoniubiz.com/items";
 
 export const fetchItems = async () => {
   try {
