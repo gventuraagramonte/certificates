@@ -11,3 +11,13 @@ export const fetchItems = async () => {
     return [];
   }
 };
+
+export const getItemById = async (id) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log("Error fetching data", error);
+    return [];
+  }
+};
