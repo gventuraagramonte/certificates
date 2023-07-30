@@ -18,8 +18,6 @@ export const Detail = () => {
 
   const fetchItem = async () => {
     const itemData = await getItemById(id);
-
-    console.log(itemData);
     setItem(itemData);
   };
 
