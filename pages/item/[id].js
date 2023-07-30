@@ -1,4 +1,4 @@
-const { Detail } = require("@/components/Detail");
+import Detail from "@/components/Detail";
 
 const ItemDetailPage = () => {
   return (

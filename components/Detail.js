@@ -6,7 +6,7 @@ import { getItemById } from "@/utils/api";
 import { Card, CardContent, Container, Typography } from "@mui/material";
 import { ThreeDots } from "react-loader-spinner";
 
-export const Detail = () => {
+const Detail = () => {
   const router = useRouter();
   const { id } = router.query;
 
@@ -81,3 +81,5 @@ export const Detail = () => {
     </Container>
   );
 };
+
+export default Detail;
