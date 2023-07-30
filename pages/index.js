@@ -1,8 +1,9 @@
+import { useEffect, useState } from "react";
+import NextLink from "next/link";
 import { fetchItems } from "@/utils/api";
 import { lightGreen, red } from "@mui/material/colors";
-import { useEffect, useState } from "react";
 
-const { Box, Typography, Grid, Paper } = require("@mui/material");
+const { Box, Typography, Grid, Paper, Link } = require("@mui/material");
 
 const Home = () => {
   const [items, setItems] = useState([]);
@@ -40,21 +41,27 @@ const Home = () => {
         <Grid container spacing={2}>
           {sortedItems.map((item) => (
             <Grid item xs={6} sm={4} md={3} key={item._id}>
-              <Paper elevation={3}>
-                <Box
-                  p={2}
-                  sx={{
-                    backgroundColor: item.statusItem
-                      ? lightGreen["A400"]
-                      : red[500],
-                  }}
-                >
-                  <Typography variant="subtitle1">{item.nombreItem}</Typography>
-                  <Typography variant="subtitle1">
-                    Vence en {item.diasItem} dias
-                  </Typography>
-                </Box>
-              </Paper>
+              <NextLink href={`/item/${item._id}`} passHref legacyBehavior>
+                <Link underline="none">
+                  <Paper elevation={3}>
+                    <Box
+                      p={2}
+                      sx={{
+                        backgroundColor: item.statusItem
+                          ? lightGreen["A400"]
+                          : red[500],
+                      }}
+                    >
+                      <Typography variant="subtitle1">
+                        {item.nombreItem}
+                      </Typography>
+                      <Typography variant="subtitle1">
+                        Vence en {item.diasItem} dias
+                      </Typography>
+                    </Box>
+                  </Paper>
+                </Link>
+              </NextLink>
             </Grid>
           ))}
         </Grid>
