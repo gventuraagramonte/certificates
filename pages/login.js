@@ -19,7 +19,6 @@ const Login = () => {
       // la sesion permanente
       Cookies.set("token", token);
       Cookies.set("fullName", fullName);
-      Cookies.set("email", email);
 
       // Mostramos una notificacion
       toast.success("Login successful!", {
