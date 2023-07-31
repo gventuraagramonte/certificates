@@ -5,38 +5,37 @@ import jwt from "jsonwebtoken";
 import { Container, CssBaseline } from "@mui/material";
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
-import { Navbar } from "@/components/Navbar";
+import Navbar from "@/components/Navbar";
 import { ToastContainer } from "react-toastify";
 
-export default function App({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
   const router = useRouter();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     checkTokenValidity();
-    const tokenCheckInterval = setInterval(checkTokenValidity, 10 * 60 * 1000);
-    return () => {
-      // Clear the timer when the app is unmounted
-      clearInterval(tokenCheckInterval);
-    };
   }, []);
 
-  const checkTokenValidity = () => {
+  const checkTokenValidity = async () => {
     const token = Cookies.get("token");
-    const fullName = Cookies.get("fullName");
-
-    if (token && fullName) {
+    if (token) {
       try {
-        jwt.decode(token);
-        console.log("Validando el token");
+        const fullName = Cookies.get("fullName");
+        const decodeToken = jwt.verify(
+          token,
+          process.env.NEXT_PUBLIC_JWT_SECRET
+        );
+        const { email } = decodeToken;
+        setUser({ email, fullName });
       } catch (error) {
-        console.error("Invalid token: ", error);
-        // If token is invalid o expired
+        console.error("Ivalid token: ", error);
         Cookies.remove("token");
         Cookies.remove("fullName");
+        setUser(null);
         router.push("/login");
       }
     } else {
-      console.log("Entrando al ese del if app");
+      setUser(null);
       router.push("/login");
     }
   };
@@ -52,10 +51,12 @@ export default function App({ Component, pageProps }) {
         closeOnClick
         pauseOnFocusLoss
       />
-      <Navbar />
+      <Navbar user={user} />
       <Container maxWidth="lg">
         <Component {...pageProps} />
       </Container>
     </>
   );
-}
+};
+
+export default App;
