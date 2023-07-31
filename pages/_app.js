@@ -27,7 +27,6 @@ export default function App({ Component, pageProps }) {
     if (token && fullName) {
       try {
         jwt.decode(token);
-        console.log("Validando el token");
       } catch (error) {
         console.error("Invalid token: ", error);
         // If token is invalid o expired
@@ -36,7 +35,6 @@ export default function App({ Component, pageProps }) {
         router.push("/login");
       }
     } else {
-      console.log("Entrando al ese del if app");
       router.push("/login");
     }
   };

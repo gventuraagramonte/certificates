@@ -29,8 +29,10 @@ export const Navbar = () => {
   // };
 
   const [usuario, setUsuario] = useState("");
+  const [correo, setCorreo] = useState("");
   const token = Cookies.get("token");
   const fullName = Cookies.get("fullName");
+  const email = Cookies.get("email");
   const user = token ? jwt.decode(token) : null;
   const userModify = JSON.stringify(user);
 
@@ -42,6 +44,7 @@ export const Navbar = () => {
   const setUsuarioPaUsarlo = async () => {
     if (userModify.length > 10) {
       setUsuario(fullName);
+      setCorreo(email);
     } else {
       console.error("no se pudo F");
     }
@@ -73,7 +76,7 @@ export const Navbar = () => {
 
         {usuario ? (
           <>
-            <NextLink href="/" passHref legacyBehavior>
+            <NextLink href={`/user/${correo}`} passHref legacyBehavior>
               <Button color="inherit" component={Link}>
                 {usuario}
               </Button>
