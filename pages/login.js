@@ -13,12 +13,14 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await login({ email, password });
+      console.log("mostrando el repsonse de login: ", response);
       const { token, fullName } = response;
 
       // Guardamos el token en una cookie para hacer
       // la sesion permanente
       Cookies.set("token", token);
       Cookies.set("fullName", fullName);
+      Cookies.set("email", response.email);
 
       // Mostramos una notificacion
       toast.success("Login successful!", {
