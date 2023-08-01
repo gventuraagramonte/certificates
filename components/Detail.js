@@ -41,7 +41,7 @@ const Detail = () => {
   return (
     <Container
       maxWidth="sm"
-      sx={{ marginTop: "20px", alignItems: "center", textAlign: "center" }}
+      sx={{ marginTop: 10, alignItems: "center", textAlign: "center" }}
     >
       <CardContent sx={{ minWidth: 80 }}>
         <CardContent>

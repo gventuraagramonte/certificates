@@ -1,80 +1,12 @@
-import { AppBar, Button, Link, Toolbar, Typography } from "@mui/material";
-import Cookies from "js-cookie";
 import NextLink from "next/link";
-import { useEffect, useState } from "react";
-import jwt from "jsonwebtoken";
+import { useAuth } from "@/context/AuthContext";
+import { AppBar, Button, Link, Toolbar, Typography } from "@mui/material";
 
-const Navbar = ({ user }) => {
-  //const { email, fullName } = user;
-  const fullName = Cookies.get("fullName");
-  const email = Cookies.get("email");
-  console.log("Estoy en el navbar iniciando: ", user);
-  console.log("Etoy en el navbar buscnado el ful: ", email);
-  // Esto sirve
-  // const [usuario, setUsuario] = useState("");
-  // const token = Cookies.get("token");
-  // const fullName = Cookies.get("fullName");
-  // const user = token ? jwt.decode(token) : null;
-  // const userModify = JSON.stringify(user);
-
-  // useEffect(() => {
-  //   setUsuarioPaUsarlo();
-  // }, []);
-
-  // // TODO!: Modificar para que luego valide el token
-  // const setUsuarioPaUsarlo = async () => {
-  //   if (userModify.length > 10) {
-  //     setUsuario(fullName);
-  //   } else {
-  //     console.error("no se pudo F");
-  //   }
-  // };
-
-  // Cuando cerramos sesion borramos el token
-  const handleLogout = () => {
-    Cookies.remove("token");
-    Cookies.remove("fullName");
-    Cookies.remove("email");
-    window.location.reload();
-  };
-
-  // if (!user) {
-  //   return (
-  //     <>
-  //       <div>Loading...</div>
-  //     </>
-  //   );
-  // }
-  if (!user) {
-    return (
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Monitoreo
-          </Typography>
-          <NextLink href="/" passHref legacyBehavior>
-            <Button color="inherit" component={Link}>
-              Home
-            </Button>
-          </NextLink>
-          <NextLink href="/create" passHref legacyBehavior>
-            <Button color="inherit" component={Link}>
-              Create
-            </Button>
-          </NextLink>
-
-          <NextLink href="/login" passHref legacyBehavior>
-            <Button color="inherit" component={Link}>
-              Login
-            </Button>
-          </NextLink>
-        </Toolbar>
-      </AppBar>
-    );
-  }
+const Navbar = () => {
+  const { user, logout } = useAuth();
 
   return (
-    <AppBar position="static">
+    <AppBar>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Monitoreo
@@ -84,22 +16,31 @@ const Navbar = ({ user }) => {
             Home
           </Button>
         </NextLink>
-        <NextLink href="/create" passHref legacyBehavior>
-          <Button color="inherit" component={Link}>
-            Create
-          </Button>
-        </NextLink>
-
-        <>
-          <NextLink href={`/user/${email}`} passHref legacyBehavior>
-            <Button color="inherit" component={Link}>
-              {fullName}
+        {!user ? (
+          <>
+            <NextLink href="/login" passHref legacyBehavior>
+              <Button color="inherit" component={Link}>
+                Login
+              </Button>
+            </NextLink>
+          </>
+        ) : (
+          <>
+            <NextLink href="/create" passHref legacyBehavior>
+              <Button color="inherit" component={Link}>
+                Create
+              </Button>
+            </NextLink>
+            <NextLink href={`/user/${user.email}`} passHref legacyBehavior>
+              <Button color="inherit" component={Link}>
+                Hola
+              </Button>
+            </NextLink>
+            <Button color="inherit" onClick={logout}>
+              Logout
             </Button>
-          </NextLink>
-          <Button color="inherit" onClick={handleLogout}>
-            Logout
-          </Button>
-        </>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
