@@ -33,14 +33,14 @@ const UserDetails = () => {
 
   if (!user) {
     return (
-      <Box p={2}>
+      <Box p={2} x={{ marginTop: 10 }}>
         <Typography variant="h4">Loading...</Typography>
       </Box>
     );
   }
 
   return (
-    <Box>
+    <Box sx={{ marginTop: 10 }}>
       <Typography variant="h4">Bienvenido {user.fullName}</Typography>
     </Box>
   );
