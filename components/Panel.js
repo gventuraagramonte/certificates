@@ -22,7 +22,6 @@ const Panel = ({ data }) => {
     const interval = setInterval(async () => {
       try {
         const newData = await getData();
-        console.log("Estoy en el efecinterval: ", newData);
         setItemsPanel(newData);
       } catch (error) {
         console.error(error);
@@ -40,9 +39,9 @@ const Panel = ({ data }) => {
   });
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       {sortedItems.map((item) => (
-        <Grid item xs={6} sm={4} md={3} key={item._id}>
+        <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
           <NextLink href={`/item/${item._id}`} passHref legacyBehavior>
             <Link underline="none">
               <Paper elevation={3}>
@@ -52,6 +51,7 @@ const Panel = ({ data }) => {
                     backgroundColor: item.statusItem
                       ? lightGreen["A400"]
                       : red[500],
+                    border: item.diasItem < 30 ? "2px solid red" : "none",
                   }}
                 >
                   <Typography variant="subtitle1">{item.nombreItem}</Typography>
