@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import jwt from "jsonwebtoken";
 import { Box, Typography } from "@mui/material";
+import List from "@/components/List";
 
 const { useRouter } = require("next/router");
 
@@ -42,6 +43,7 @@ const UserDetails = () => {
   return (
     <Box sx={{ marginTop: 10 }}>
       <Typography variant="h4">Bienvenido {user.fullName}</Typography>
+      <List />
     </Box>
   );
 };
